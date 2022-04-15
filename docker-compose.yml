@@ -1,0 +1,45 @@
+version: '2.4'
+
+services:
+
+  mariadb:
+    image: mariadb:10.6
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - mariadb:/var/lib/mysql
+    networks:
+      - tldregistry
+    environment:
+      - MARIADB_ROOT_PASSWORD=root
+      - MARIADB_USER=tlduser
+      - MARIADB_PASSWORD=tldpassword
+    ports:
+      - 3306:3306
+      - 33060:33060
+    restart: always
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:5
+    volumes:
+      - phpmyadmin:/etc/phpmyadmin
+    networks:
+      - tldregistry
+    environment:
+      - PMA_HOST=mariadb
+      - PMA_PORT=3306
+    ports:
+      - 8080:80
+    restart: always
+    depends_on:
+      - mariadb
+
+networks:
+  tldregistry:
+    ipam: 
+      config: 
+        - subnet: 172.6.0.0/16
+          gateway: 172.6.0.12
+
+volumes:
+  mariadb:
+  phpmyadmin:
