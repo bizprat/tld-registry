@@ -1,2 +1,11 @@
 ### Users
 GET http://localhost:3000/users
+
+### Users
+POST http://localhost:3000/users
+content-type: application/jsonc
+
+{
+  "email": "a",
+  "password": "a"
+}
