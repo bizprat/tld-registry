@@ -3,9 +3,9 @@ GET http://localhost:3000/users
 
 ### Users
 POST http://localhost:3000/users
-content-type: application/jsonc
+content-type: application/json
 
 {
-  "email": "a",
-  "password": "a"
+  "email": "a@gmai.co",
+  "password": "123456"
 }
