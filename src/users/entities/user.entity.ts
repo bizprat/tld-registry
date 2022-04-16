@@ -13,38 +13,73 @@ export class User {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column('varchar', { name: 'first_name', length: 20, nullable: true })
+  @Column('varchar', {
+    name: 'first_name',
+    length: 20,
+    nullable: true,
+  })
   firstName: string;
 
-  @Column('varchar', { name: 'middle_name', length: 20, nullable: true })
+  @Column('varchar', {
+    name: 'middle_name',
+    length: 20,
+    nullable: true,
+  })
   middleName: string;
 
-  @Column('varchar', { name: 'last_name', length: 20, nullable: true })
+  @Column('varchar', {
+    name: 'last_name',
+    length: 20,
+    nullable: true,
+  })
   last_name: string;
 
-  @Column('varchar', { length: 50, nullable: false, unique: true })
+  @Column('varchar', {
+    length: 50,
+    nullable: false,
+    unique: true,
+  })
   email: string;
 
-  @Column('varchar', { length: 255, nullable: false })
+  @Column('varchar', {
+    length: 255,
+    nullable: false,
+  })
   password: string;
 
   @Column('simple-array', { nullable: true })
   phone: Array<string>;
 
-  @Column('tinyint', { nullable: true })
-  country_id: number;
+  @Column('tinyint', {
+    name: 'country_id',
+    nullable: true,
+  })
+  countryId: number;
 
-  @Column('tinyint', { nullable: true })
-  state_id: number;
+  @Column('tinyint', {
+    name: 'state_id',
+    nullable: true,
+  })
+  stateId: number;
 
-  @Column('tinyint', { nullable: true })
-  city_id: number;
+  @Column('tinyint', {
+    name: 'city_id',
+    nullable: true,
+  })
+  cityId: number;
 
-  @Column('mediumint', { nullable: true })
-  postal_code: number;
+  @Column('mediumint', {
+    name: 'postal_code',
+    nullable: true,
+  })
+  postalCode: number;
 
-  @Column('boolean', { default: true, nullable: false })
-  is_active: boolean;
+  @Column('boolean', {
+    name: 'is_active',
+    default: true,
+    nullable: false,
+  })
+  isActive: boolean;
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;

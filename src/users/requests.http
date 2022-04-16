@@ -1,5 +1,5 @@
 ### Users
-GET http://localhost:3000/users
+GET http://localhost:3000/users/1
 
 ### Users
 POST http://localhost:3000/users
@@ -9,3 +9,6 @@ content-type: application/json
   "email": "a@gmails.co",
   "password": "123456"
 }
+
+### DELETE Users
+DELETE http://localhost:3000/users/1
