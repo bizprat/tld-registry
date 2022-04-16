@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -16,16 +16,24 @@ export class UsersService {
     @InjectRepository(User) private userRepository: Repository<User>,
   ) {}
 
-  create(user: CreateUserDto): Promise<UserInterface> {
-    return this.userRepository.save(this.userRepository.create(user));
+  async create(user: CreateUserDto): Promise<UserInterface> {
+    const createUser = await this.userRepository.create(user);
+    console.log(createUser);
+    return await this.userRepository.save(createUser);
+
+    // TODO - Handle error for unique email column
   }
 
   findAll() {
     return `This action returns all users`;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
+  async findOne(id: number): Promise<User> {
+    const user = await this.userRepository.findOne(id);
+    if (!user) {
+      throw new NotFoundException('User not found with id: ' + id);
+    }
+    return user;
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {
