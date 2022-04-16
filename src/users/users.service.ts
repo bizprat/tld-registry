@@ -5,14 +5,19 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 
+export interface UserInterface {
+  email: string;
+  password: string;
+}
+
 @Injectable()
 export class UsersService {
   constructor(
     @InjectRepository(User) private userRepository: Repository<User>,
   ) {}
 
-  create(createUserDto: CreateUserDto) {
-    return 'This action adds a new user';
+  create(user: CreateUserDto): Promise<UserInterface> {
+    return this.userRepository.save(this.userRepository.create(user));
   }
 
   findAll() {
