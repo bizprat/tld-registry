@@ -1,5 +1,5 @@
 ### Users
-GET http://localhost:3000/users/1
+GET http://localhost:3000/users/7
 
 ### Users
 POST http://localhost:3000/users

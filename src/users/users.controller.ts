@@ -9,13 +9,17 @@ import {
   ParseIntPipe,
   HttpException,
   HttpStatus,
+  UseInterceptors,
 } from '@nestjs/common';
+import { SerializeInterceptor } from '../interceptors/serialize.interceptor';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { UserDto } from './dto/user.dto';
 
 // TODO: Catch and log errors related to query run failed
 
+@UseInterceptors(new SerializeInterceptor(UserDto))
 @Controller('/users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
