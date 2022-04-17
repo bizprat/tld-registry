@@ -18,10 +18,19 @@ PATCH http://localhost:3000/users/7
 content-type: application/json
 
 {
-  "email": "ag@gmails.co",
+  "email": "ag@gmails.com",
   "password": "123456",
   "firstName": "Prateek",
   "lastName": "Anand",
   "phone": [],
   "countryId": 41
+}
+
+### Login users
+POST http://localhost:3000/users/login
+content-type: application/json
+
+{
+  "email": "ag@gmails.com",
+  "password": "1234567"
 }

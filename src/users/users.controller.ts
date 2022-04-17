@@ -18,6 +18,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
+  // Create new user
   @Post()
   create(@Body() createUserDto: CreateUserDto): object {
     return this.usersService.create(createUserDto).catch((err) => {
@@ -25,11 +26,13 @@ export class UsersController {
     });
   }
 
+  // Get user by ID
   @Get(':id')
   findOne(@Param('id', ParseIntPipe) id: number) {
     return this.usersService.findOne(+id);
   }
 
+  // Update user by ID
   @Patch(':id')
   update(
     @Param('id', ParseIntPipe) id: number,
@@ -38,8 +41,18 @@ export class UsersController {
     return this.usersService.update(+id, updateUserDto);
   }
 
+  // Delete user by ID (soft delete)
   @Delete(':id')
   remove(@Param('id', ParseIntPipe) id: number) {
     return this.usersService.remove(+id);
+  }
+
+  // Login user with email and password
+  @Post('login')
+  async loginWithEmail(@Body() loginInfo: CreateUserDto) {
+    return await this.usersService.loginWithEmail(
+      loginInfo.email,
+      loginInfo.password,
+    );
   }
 }

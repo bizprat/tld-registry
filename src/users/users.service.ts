@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './entities/user.entity';
@@ -41,5 +45,14 @@ export class UsersService {
       throw new NotFoundException('User not found with id: ' + id);
     }
     await this.userRepository.softRemove(user);
+  }
+
+  async loginWithEmail(email: string, password: string) {
+    const user = await this.userRepository.findOne({ email });
+
+    if (user.password !== password) {
+      throw new UnauthorizedException('Invalid login details');
+    }
+    return user;
   }
 }
