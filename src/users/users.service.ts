@@ -39,11 +39,17 @@ export class UsersService {
     return await this.userRepository.save(user);
   }
 
+  async disableUser(id: number) {
+    const user = await this.update(+id, { isActive: false });
+    console.log(`${user.id} is disabled`);
+  }
+
   async remove(id: number) {
     const user = await this.findOne(id);
     if (!user) {
       throw new NotFoundException('User not found with id: ' + id);
     }
+    await this.disableUser(+id);
     await this.userRepository.softRemove(user);
   }
 
