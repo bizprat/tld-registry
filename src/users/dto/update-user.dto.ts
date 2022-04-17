@@ -7,7 +7,8 @@ import {
   IsOptional,
   IsEmail,
   MinLength,
-  IsPhoneNumber,
+  // IsPhoneNumber,
+  IsArray,
 } from 'class-validator';
 import { CreateUserDto } from './create-user.dto';
 
@@ -35,8 +36,11 @@ export class UpdateUserDto extends PartialType(CreateUserDto) {
   password: string;
 
   // TODO: Validate arrays of phone number by country
+  // @IsPhoneNumber('AF', '+91', { each: true })
+  // https://www.npmjs.com/package/libphonenumber-js
+  // https://catamphetamine.gitlab.io/libphonenumber-js/
   @IsOptional()
-  @IsPhoneNumber('IN', { each: true })
+  @IsArray()
   phone: Array<string>;
 
   @IsOptional()

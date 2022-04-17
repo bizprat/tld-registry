@@ -22,5 +22,6 @@ content-type: application/json
   "password": "123456",
   "firstName": "Prateek",
   "lastName": "Anand",
-  "phone": ['9122992255']
+  "phone": [],
+  "countryId": 41
 }
