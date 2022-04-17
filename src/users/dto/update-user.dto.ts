@@ -7,6 +7,7 @@ import {
   IsOptional,
   IsEmail,
   MinLength,
+  IsPhoneNumber,
 } from 'class-validator';
 import { CreateUserDto } from './create-user.dto';
 
@@ -33,7 +34,9 @@ export class UpdateUserDto extends PartialType(CreateUserDto) {
   })
   password: string;
 
+  // TODO: Validate arrays of phone number by country
   @IsOptional()
+  @IsPhoneNumber('IN', { each: true })
   phone: Array<string>;
 
   @IsOptional()

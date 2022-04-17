@@ -32,7 +32,7 @@ export class User {
     length: 20,
     nullable: true,
   })
-  last_name: string;
+  lastName: string;
 
   @Column('varchar', {
     length: 50,
