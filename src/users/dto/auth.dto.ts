@@ -1,7 +1,7 @@
 import { IsEmail, IsString, MinLength } from 'class-validator';
-import { UserInterface } from '../user.interface';
+import { UsersInterface } from '../users.interface';
 
-export class AuthDto implements Partial<UserInterface> {
+export class AuthDto implements Partial<UsersInterface> {
   @IsEmail({}, { message: '$value is not a valid $property' })
   email: string;
 

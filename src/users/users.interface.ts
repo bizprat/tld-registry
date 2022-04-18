@@ -1,5 +1,4 @@
-export interface UserInterface {
-  readonly id: number;
+export interface UsersInterface {
   firstName: string;
   middleName: string;
   lastName: string;
@@ -10,5 +9,4 @@ export interface UserInterface {
   stateId: number;
   cityId: number;
   postalCode: number;
-  isActive: boolean;
 }

@@ -7,10 +7,10 @@ import {
   DeleteDateColumn,
   VersionColumn,
 } from 'typeorm';
-import { UserInterface } from '../user.interface';
+import { UsersInterface } from '../users.interface';
 
 @Entity()
-export class User implements UserInterface {
+export class User implements UsersInterface {
   @PrimaryGeneratedColumn()
   id: number;
 
