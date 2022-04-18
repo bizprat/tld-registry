@@ -8,7 +8,6 @@ import { Repository } from 'typeorm';
 import { randomBytes, scrypt as _scrypt } from 'crypto';
 import { promisify } from 'util';
 import { User } from './entities/user.entity';
-import { UsersInterface } from './users.interface';
 
 @Injectable()
 export class UsersService {
@@ -23,7 +22,7 @@ export class UsersService {
     return salt + '$' + hash.toString('hex');
   }
 
-  async create(user: Partial<UsersInterface>) {
+  async create(user: Partial<User>) {
     user.password = await this.hashPassword(user.password);
     return await this.userRepository.save(this.userRepository.create(user));
   }
@@ -36,7 +35,7 @@ export class UsersService {
     return user;
   }
 
-  async update(id: number, attrs: Partial<UsersInterface>) {
+  async update(id: number, attrs: Partial<User>) {
     const user = await this.findOne(+id);
     if (!user) {
       throw new NotFoundException('User not found with id: ' + id);
@@ -62,7 +61,7 @@ export class UsersService {
     await this.userRepository.softRemove(user);
   }
 
-  async loginWithEmail(credentials: Partial<UsersInterface>) {
+  async loginWithEmail(credentials: Partial<User>) {
     const { email, password } = credentials;
     const user = await this.userRepository.findOne({ email });
 
