@@ -1,6 +1,13 @@
 import { UseInterceptors } from '@nestjs/common';
-import { SerializeInterceptor } from '../interceptors/serialize.interceptor';
+import {
+  ClassConstructor,
+  SerializeInterceptor,
+} from '../interceptors/serialize.interceptor';
 
-export function HideSensitiveValues(dto: any) {
+// interface ClassConstructor {
+//   new (...args: any[]): object;
+// }
+
+export function HideSensitiveValues(dto: ClassConstructor) {
   return UseInterceptors(new SerializeInterceptor(dto));
 }

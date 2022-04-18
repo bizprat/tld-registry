@@ -7,9 +7,10 @@ import {
   DeleteDateColumn,
   VersionColumn,
 } from 'typeorm';
+import { UserInterface } from '../user.interface';
 
 @Entity()
-export class User {
+export class User implements UserInterface {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -48,7 +49,7 @@ export class User {
   password: string;
 
   @Column('simple-array', { nullable: true })
-  phone: Array<string>;
+  phone: Array<number>;
 
   @Column('tinyint', {
     name: 'country_id',

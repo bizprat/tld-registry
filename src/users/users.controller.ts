@@ -10,23 +10,21 @@ import {
   HttpException,
   HttpStatus,
 } from '@nestjs/common';
-import { HideSensitiveValues } from 'src/decorators/hide-sensitive-info.decorator';
+import { HideSensitiveValues } from '../decorators/hide-sensitive-info.decorator';
 import { UsersService } from './users.service';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
-import { UserDto } from './dto/user.dto';
+import { AuthDto, UpdateUserDto, UserDto } from './dto';
 
 // TODO: Catch and log errors related to query run failed
 
-@HideSensitiveValues(UserDto)
 @Controller('/users')
+@HideSensitiveValues(UserDto)
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   // Create new user
   @Post()
-  create(@Body() createUserDto: CreateUserDto): object {
-    return this.usersService.create(createUserDto).catch((err) => {
+  async create(@Body() credentials: AuthDto) {
+    return await this.usersService.create(credentials).catch((err) => {
       throw new HttpException({ message: err.message }, HttpStatus.BAD_REQUEST);
     });
   }
@@ -54,10 +52,8 @@ export class UsersController {
 
   // Login user with email and password
   @Post('login')
-  async loginWithEmail(@Body() loginInfo: CreateUserDto) {
-    return await this.usersService.loginWithEmail(
-      loginInfo.email,
-      loginInfo.password,
-    );
+  async loginWithEmail(@Body() loginInfo: AuthDto) {
+    // FIX: 201 Created status code while it should be 200
+    return await this.usersService.loginWithEmail(loginInfo);
   }
 }

@@ -5,12 +5,10 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { randomBytes, scrypt as _scrypt } from 'crypto';
+import { promisify } from 'util';
 import { User } from './entities/user.entity';
-
-export interface UserInterface {
-  email: string;
-  password: string;
-}
+import { UserInterface } from './user.interface';
 
 @Injectable()
 export class UsersService {
@@ -18,8 +16,16 @@ export class UsersService {
     @InjectRepository(User) private userRepository: Repository<User>,
   ) {}
 
-  create(user: Partial<User>) {
-    return this.userRepository.save(this.userRepository.create(user));
+  async hashPassword(password: string, saltKey?: string) {
+    const scrypt = promisify(_scrypt);
+    const salt = saltKey || randomBytes(32).toString('hex');
+    const hash = (await scrypt(password, salt, 64)) as Buffer;
+    return salt + '$' + hash.toString('hex');
+  }
+
+  async create(user: Partial<UserInterface>) {
+    user.password = await this.hashPassword(user.password);
+    return await this.userRepository.save(this.userRepository.create(user));
   }
 
   async findOne(id: number) {
@@ -30,10 +36,13 @@ export class UsersService {
     return user;
   }
 
-  async update(id: number, attrs: Partial<User>) {
+  async update(id: number, attrs: Partial<UserInterface>) {
     const user = await this.findOne(+id);
     if (!user) {
       throw new NotFoundException('User not found with id: ' + id);
+    }
+    if (attrs.password) {
+      attrs.password = await this.hashPassword(attrs.password);
     }
     Object.assign(user, attrs);
     return await this.userRepository.save(user);
@@ -53,10 +62,19 @@ export class UsersService {
     await this.userRepository.softRemove(user);
   }
 
-  async loginWithEmail(email: string, password: string) {
+  async loginWithEmail(credentials: Partial<UserInterface>) {
+    const { email, password } = credentials;
     const user = await this.userRepository.findOne({ email });
 
-    if (user.password !== password) {
+    if (!user) {
+      throw new UnauthorizedException('-Invalid login details-');
+    }
+
+    const [dbSalt] = user.password.split('$');
+
+    const hash = await this.hashPassword(password, dbSalt);
+
+    if (user.password !== hash) {
       throw new UnauthorizedException('Invalid login details');
     }
     return user;

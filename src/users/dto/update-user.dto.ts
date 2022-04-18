@@ -10,9 +10,9 @@ import {
   // IsPhoneNumber,
   IsArray,
 } from 'class-validator';
-import { CreateUserDto } from './create-user.dto';
+import { AuthDto } from './auth.dto';
 
-export class UpdateUserDto extends PartialType(CreateUserDto) {
+export class UpdateUserDto extends PartialType(AuthDto) {
   @IsOptional()
   @IsString()
   firstName: string;
@@ -41,7 +41,7 @@ export class UpdateUserDto extends PartialType(CreateUserDto) {
   // https://catamphetamine.gitlab.io/libphonenumber-js/
   @IsOptional()
   @IsArray()
-  phone: Array<string>;
+  phone: Array<number>;
 
   @IsOptional()
   @IsNumber()

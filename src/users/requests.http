@@ -1,12 +1,12 @@
 ### Users
-GET http://localhost:3000/users/7
+GET http://localhost:3000/users/1
 
 ### Users
 POST http://localhost:3000/users
 content-type: application/json
 
 {
-  "email": "ab@gmails.co",
+  "email": "a@gmail.co",
   "password": "123456"
 }
 
@@ -14,7 +14,7 @@ content-type: application/json
 DELETE http://localhost:3000/users/1
 
 ### UPDATE Users
-PATCH http://localhost:3000/users/7
+PATCH http://localhost:3000/users/1
 content-type: application/json
 
 {
@@ -32,5 +32,5 @@ content-type: application/json
 
 {
   "email": "ag@gmails.com",
-  "password": "1234567"
+  "password": "123456"
 }
