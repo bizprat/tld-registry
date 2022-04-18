@@ -19,7 +19,7 @@ content-type: application/json
 
 {
   "email": "ag@gmails.com",
-  "password": "123456",
+  "password": "123456s",
   "firstName": "Prateek",
   "lastName": "Anand",
   "phone": [],
@@ -32,5 +32,5 @@ content-type: application/json
 
 {
   "email": "ag@gmails.com",
-  "password": "123456"
+  "password": "123456s"
 }
