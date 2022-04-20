@@ -2,7 +2,7 @@
 GET http://localhost:3000/users/1
 
 ### Users
-POST http://localhost:3000/users
+POST http://localhost:3000/auth/signup
 content-type: application/json
 
 {
@@ -27,7 +27,7 @@ content-type: application/json
 }
 
 ### Login users
-POST http://localhost:3000/users/login
+POST http://localhost:3000/auth/login
 content-type: application/json
 
 {
@@ -39,4 +39,4 @@ content-type: application/json
 GET http://localhost:3000/users/whoami
 
 ### Logout users
-POST http://localhost:3000/users/logout
+POST http://localhost:3000/auth/logout
