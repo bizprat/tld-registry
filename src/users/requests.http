@@ -34,3 +34,9 @@ content-type: application/json
   "email": "ag@gmails.com",
   "password": "123456s"
 }
+
+### WhoAmI
+GET http://localhost:3000/users/whoami
+
+### Logout users
+POST http://localhost:3000/users/logout

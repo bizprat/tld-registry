@@ -9,6 +9,7 @@ import {
   ParseIntPipe,
   HttpException,
   HttpStatus,
+  Session,
 } from '@nestjs/common';
 import { HideSensitiveValues } from '../decorators/hide-sensitive-info.decorator';
 import { UsersService } from './users.service';
@@ -21,6 +22,11 @@ import { AuthDto, UpdateUserDto, UserDto } from './dto';
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
+  @Get('/whoami')
+  whoami(@Session() session: any) {
+    return this.usersService.findOne(session.userId);
+  }
+
   // Create new user
   @Post()
   async create(@Body() credentials: AuthDto) {
@@ -30,7 +36,7 @@ export class UsersController {
   }
 
   // Get user by ID
-  @Get(':id')
+  @Get('/:id')
   findOne(@Param('id', ParseIntPipe) id: number) {
     return this.usersService.findOne(+id);
   }
@@ -45,15 +51,23 @@ export class UsersController {
   }
 
   // Delete user by ID (soft delete)
-  @Delete(':id')
+  @Delete('/:id')
   remove(@Param('id', ParseIntPipe) id: number) {
     return this.usersService.remove(+id);
   }
 
   // Login user with email and password
-  @Post('login')
-  async loginWithEmail(@Body() loginInfo: AuthDto) {
+  @Post('/login')
+  async loginWithEmail(@Body() loginInfo: AuthDto, @Session() session: any) {
     // FIX: 201 Created status code while it should be 200
-    return await this.usersService.loginWithEmail(loginInfo);
+    const user = await this.usersService.loginWithEmail(loginInfo);
+    session.userId = user.id;
+    return user;
+  }
+
+  // Logout user
+  @Post('/logout')
+  logout(@Session() session: any) {
+    session.userId = null;
   }
 }
