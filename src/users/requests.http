@@ -1,17 +1,17 @@
 ### Users
-GET http://localhost:3000/users/1
+GET http://localhost:3000/users/5
 
 ### Users
 POST http://localhost:3000/auth/signup
 content-type: application/json
 
 {
-  "email": "a@gmail.co",
+  "email": "ahd@gmail.co",
   "password": "123456"
 }
 
 ### DELETE Users
-DELETE http://localhost:3000/users/1
+DELETE http://localhost:3000/users/5
 
 ### UPDATE Users
 PATCH http://localhost:3000/users/1
@@ -36,7 +36,7 @@ content-type: application/json
 }
 
 ### WhoAmI
-GET http://localhost:3000/users/whoami
+GET http://localhost:3000/auth/whoami
 
 ### Logout users
 POST http://localhost:3000/auth/logout

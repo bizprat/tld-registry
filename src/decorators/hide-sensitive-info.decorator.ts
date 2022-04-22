@@ -8,6 +8,6 @@ import {
 //   new (...args: any[]): object;
 // }
 
-export function HideSensitiveValues(dto: ClassConstructor) {
+export function HideSensitiveData(dto: ClassConstructor) {
   return UseInterceptors(new SerializeInterceptor(dto));
 }

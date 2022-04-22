@@ -1,15 +1,18 @@
 import {
   Body,
   Controller,
+  Get,
   Post,
   HttpException,
   HttpStatus,
   Session,
 } from '@nestjs/common';
+import { CurrentUser, HideSensitiveData } from '../decorators';
 import { UsersService } from './users.service';
-import { AuthDto } from './dto';
+import { AuthDto, UserDto } from './dto';
 
-@Controller('auth')
+@Controller('/auth')
+@HideSensitiveData(UserDto)
 export class AuthController {
   constructor(private readonly usersService: UsersService) {}
 
@@ -34,5 +37,15 @@ export class AuthController {
   @Post('/logout')
   logout(@Session() session: any) {
     session.userId = null;
+  }
+
+  // @Get('/whoami')
+  // whoami(@Session() session: any) {
+  //   return this.usersService.findOne(session.userId);
+  // }
+
+  @Get('/whoami')
+  whoAmI(@CurrentUser() user: string) {
+    return user;
   }
 }
