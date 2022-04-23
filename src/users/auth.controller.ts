@@ -45,7 +45,8 @@ export class AuthController {
   // }
 
   @Get('/whoami')
-  whoAmI(@CurrentUser() user: string) {
+  whoAmI(@CurrentUser() user: any) {
+    console.log('test');
     return user;
   }
 }
