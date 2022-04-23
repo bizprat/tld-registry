@@ -8,7 +8,7 @@ import {
   ParseIntPipe,
   UseGuards,
 } from '@nestjs/common';
-import { HideSensitiveData } from '../decorators/hide-sensitive-info.decorator';
+import { HideSensitiveData } from './decorators/hide-sensitive-info.decorator';
 import { UsersService } from './users.service';
 import { UpdateUserDto, UserDto } from './dto';
 import { AuthGuard } from '../guards/auth.guard';

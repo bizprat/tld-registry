@@ -7,7 +7,7 @@ import {
   HttpStatus,
   Session,
 } from '@nestjs/common';
-import { CurrentUser, HideSensitiveData } from '../decorators';
+import { CurrentUser, HideSensitiveData } from './decorators';
 import { UsersService } from './users.service';
 import { AuthDto, UserDto } from './dto';
 
