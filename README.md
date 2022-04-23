@@ -2,8 +2,9 @@
 
 1. Install docker on windows. Here is the [tutorial](https://www.youtube.com/watch?v=BMBwyadxokc)
 2. Open cmd in current directory and run `docker-compose up` command
-3. Then open new tab in cmd and run `npm run start:dev`
+3. Then open new tab in cmd and run `npm run start:dev` to start development server
 4. Open file requests.http in `src/users/requests.http` which contains all the api routes
+5. The command `docker-compose down` will stop the docker containers
 
 ### TODO:
 
